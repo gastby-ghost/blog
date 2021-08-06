@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from flask.ext.script import Manager, Shell
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
 from app import create_app, db
 from app.models import ArticleType, article_types, Source, \
     Comment, Article, User, Menu, ArticleTypeSetting, BlogInfo, \
@@ -35,7 +35,7 @@ manager.add_command("shell", Shell(make_context=make_shell_context))
 
 @manager.command
 def deploy(deploy_type):
-    from flask.ext.migrate import upgrade
+    from flask_migrate import upgrade
     from app.models import BlogInfo, User, ArticleTypeSetting, Source, \
         ArticleType, Plugin, BlogView, Comment
 

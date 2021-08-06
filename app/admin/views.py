@@ -1,13 +1,11 @@
 # coding:utf-8
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 from datetime import datetime
 import json
 from flask import render_template, redirect, flash, \
     url_for, request, current_app, jsonify
-from flask.ext.login import login_required, current_user
+from flask_login import login_required, current_user
 from . import admin
 from ..models import ArticleType, Source, Article, article_types, \
     Comment, User, Follow, Menu, ArticleTypeSetting, BlogInfo, Plugin
