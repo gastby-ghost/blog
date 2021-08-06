@@ -126,6 +126,20 @@
                                             {% endfor %}
                                         </p>
                                     </div>
+                                    <div class="entry-box">
+                                        <h5><strong>标签</strong></h5>
+                                        {% for article_type in ArticleType.query.all() %}
+                                            {% if not article_type.menu %}
+                                                {% if not article_type.is_hide %}
+                                                    <li>
+                                                        <a href="{{ url_for('main.articleTypes', id=article_type.id) }}">
+                                                            {{ article_type.name }}
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
