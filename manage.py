@@ -11,7 +11,6 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
-
 # Global variables to jiajia2 environment:
 app.jinja_env.globals['ArticleType'] = ArticleType
 app.jinja_env.globals['article_types'] = article_types
@@ -25,10 +24,11 @@ app.jinja_env.globals['BlogView'] = BlogView
 
 
 def make_shell_context():
-    return dict(db=db, ArticleType=ArticleType,Source=Source,
+    return dict(db=db, ArticleType=ArticleType, Source=Source,
                 Comment=Comment, Article=Article, User=User, Menu=Menu,
                 ArticleTypeSetting=ArticleTypeSetting, BlogInfo=BlogInfo,
                 Plugin=Plugin, BlogView=BlogView)
+
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 

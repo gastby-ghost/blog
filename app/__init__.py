@@ -1,7 +1,7 @@
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy #数据库ORM
-from flask.ext.bootstrap import Bootstrap   #框架
-from flask.ext.login import LoginManager    #登录管理模块
+from flask_sqlalchemy import SQLAlchemy #数据库ORM
+from flask_bootstrap import Bootstrap   #框架
+from flask_login import LoginManager    #登录管理模块
 from flask_wtf.csrf import CsrfProtect      #csrf保护模块
 from flask_moment import Moment             #时间模块
 from config import Config                   #配置文件模块
