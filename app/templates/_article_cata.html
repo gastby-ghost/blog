@@ -1,0 +1,16 @@
+
+<div class="article-entry-info">
+    <li class="article-entry-title_cata">
+        <a href="{{ url_for('.articleDetails', id=article.id) }}">{{ article.title }}</a>
+    </li>
+    <li class="label_cata label-warning">
+        <a href="{{ url_for('main.article_sources', id=article.source.id) }}" target="_blank" style="color: white">
+            {{ article.source.name }}
+        </a>
+    </li>&nbsp;
+    <li class="label_cata label-info">
+        <a href="{{ url_for('main.articleTypes', id=article.articleType.id) }}" target="_blank" style="color: white">
+            {{ article.articleType.name }}
+        </a>
+    </li>
+</div>
