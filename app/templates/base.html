@@ -12,13 +12,11 @@
     {% block stylesheet %}
         <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/calender.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
 <header>
-    <div class='header-top'>
-
-    </div>
     <nav class="navbar navbar-{{ BlogInfo.query.first().navbar }}" role="navigation">
         <div class="container">
             <div class="collapse navbar-collapse">
@@ -79,6 +77,51 @@
                                     </div>
                                 {% else %}
                                     <div class="entry-box">
+                                        <div class="title">
+                                            <h2 class="green" id="calendar-title" style="text-align:center;margin:5px">
+                                                Month
+                                            </h2>
+                                            <a href="" id="prev" style="float:left">&lt;</a>
+                                            <a href="" id="next" style="float:right">&gt;</a>
+                                            <h3 class="green small" id="calendar-year" style="text-align:center;margin:5px">
+                                                Year
+                                            </h3>
+
+                                        </div>
+                                        <div class="body" style="min-height:230px">
+                                            <div class="lightgrey body-list">
+                                                <ul>
+                                                    <li>MON</li>
+                                                    <li>TUE</li>
+                                                    <li>WED</li>
+                                                    <li>THU</li>
+                                                    <li>FRI</li>
+                                                    <li>SAT</li>
+                                                    <li>SUN</li>
+                                                </ul>
+                                            </div>
+                                            <div class="darkgrey body-list">
+                                                <ul id="days">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <script type='text/javascript' src='./static/js/calender.js'></script>
+                                    </div>
+                                    <div class="entry-box">
+                                        <h5><strong>标签</strong></h5>
+                                        {% for article_type in ArticleType.query.all() %}
+                                            {% if not article_type.menu %}
+                                                {% if not article_type.is_hide %}
+                                                <li>
+                                                    <a href="{{ url_for('main.articleTypes', id=article_type.id) }}">
+                                                        {{ article_type.name }}
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="entry-box">
                                         <h5><strong>博客统计</strong></h5>
                                         <p>访问量：<span class="badge">{{ BlogView.query.first().num_of_view }}</span></p>
                                         <p>
@@ -91,20 +134,6 @@
                                                 <span class="badge">{{ source.articles.count() }}</span>
                                             {% endfor %}
                                         </p>
-                                    </div>
-                                    <div class="entry-box">
-                                        <h5><strong>标签</strong></h5>
-                                        {% for article_type in ArticleType.query.all() %}
-                                            {% if not article_type.menu %}
-                                                {% if not article_type.is_hide %}
-                                                    <li>
-                                                        <a href="{{ url_for('main.articleTypes', id=article_type.id) }}">
-                                                            {{ article_type.name }}
-                                                        </a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endfor %}
                                     </div>
                                 {% endif %}
                             {% endif %}
