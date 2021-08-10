@@ -1,5 +1,5 @@
-#coding:utf-8
-from flask import render_template, request, current_app, redirect,\
+# coding:utf-8
+from flask import render_template, request, current_app, redirect, \
     url_for, flash
 from . import main
 from ..models import Article, ArticleType, article_types, Comment, \
@@ -13,8 +13,8 @@ def index():
     BlogView.add_view(db)
     page = request.args.get('page', 1, type=int)
     pagination = Article.query.order_by(Article.create_time.desc()).paginate(
-            page, per_page=current_app.config['ARTICLES_PER_PAGE'],
-            error_out=False)
+        page, per_page=current_app.config['ARTICLES_PER_PAGE'],
+        error_out=False)
     articles = pagination.items
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.index')
@@ -25,9 +25,9 @@ def articleTypes(id):
     BlogView.add_view(db)
     page = request.args.get('page', 1, type=int)
     pagination = ArticleType.query.get_or_404(id).articles.order_by(
-            Article.create_time.desc()).paginate(
-            page, per_page=current_app.config['ARTICLES_PER_PAGE'],
-            error_out=False)
+        Article.create_time.desc()).paginate(
+        page, per_page=current_app.config['ARTICLES_PER_PAGE'],
+        error_out=False)
     articles = pagination.items
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.articleTypes',
@@ -39,9 +39,9 @@ def article_sources(id):
     BlogView.add_view(db)
     page = request.args.get('page', 1, type=int)
     pagination = Source.query.get_or_404(id).articles.order_by(
-            Article.create_time.desc()).paginate(
-            page, per_page=current_app.config['ARTICLES_PER_PAGE'],
-            error_out=False)
+        Article.create_time.desc()).paginate(
+        page, per_page=current_app.config['ARTICLES_PER_PAGE'],
+        error_out=False)
     articles = pagination.items
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.article_sources',
@@ -78,7 +78,7 @@ def articleDetails(id):
     page = request.args.get('page', 1, type=int)
     if page == -1:
         page = (article.comments.count() - 1) // \
-            current_app.config['COMMENTS_PER_PAGE'] + 1
+               current_app.config['COMMENTS_PER_PAGE'] + 1
     pagination = article.comments.order_by(Comment.timestamp.asc()).paginate(
         page, per_page=current_app.config['COMMENTS_PER_PAGE'],
         error_out=False)
