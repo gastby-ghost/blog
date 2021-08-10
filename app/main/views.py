@@ -19,6 +19,16 @@ def index():
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.index')
 
+@main.route('/cata')
+def cata():
+    BlogView.add_view(db)
+    page = request.args.get('page', 1, type=int)
+    pagination = Article.query.order_by(Article.create_time.desc()).paginate(
+        page, per_page=current_app.config['ARTICLES_PER_CATA'],
+        error_out=False)
+    articles = pagination.items
+    return render_template('cata.html', articles=articles,
+                           pagination=pagination, endpoint='.cata')
 
 @main.route('/article-types/<int:id>/')
 def articleTypes(id):

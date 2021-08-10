@@ -1,16 +1,28 @@
-
-<div class="article-entry-info">
-    <li class="article-entry-title_cata">
-        <a href="{{ url_for('.articleDetails', id=article.id) }}">{{ article.title }}</a>
-    </li>
-    <li class="label_cata label-warning">
-        <a href="{{ url_for('main.article_sources', id=article.source.id) }}" target="_blank" style="color: white">
-            {{ article.source.name }}
-        </a>
-    </li>&nbsp;
-    <li class="label_cata label-info">
-        <a href="{{ url_for('main.articleTypes', id=article.articleType.id) }}" target="_blank" style="color: white">
-            {{ article.articleType.name }}
-        </a>
-    </li>
+<div id='article-entry' class="entry-box">
+    {% for article in articles %}
+        <div class="article-entry-info">
+            <div class="base-info">
+                <span class="label label-default">{{ moment(article.create_time.date()).format('LL') }}</span>&nbsp;
+                <span class="label label-warning">
+                    <a href="{{ url_for('main.article_sources', id=article.source.id) }}" target="_blank" style="color: white">
+                        {{ article.source.name }}
+                    </a>
+                </span>&nbsp;
+                <span class="label label-info">
+                    <a href="{{ url_for('main.articleTypes', id=article.articleType.id) }}" target="_blank" style="color: white">
+                        {{ article.articleType.name }}
+                    </a>
+                </span>&nbsp;
+            </div>
+            <div class="base-info">
+                <span >
+                    <a href="{{ url_for('.articleDetails', id=article.id) }}">{{ article.title }}</a>
+                </span>&nbsp;
+            </div>
+            <div class="main-info">
+                <span class="label label-primary">浏览 {{ article.num_of_view }}</span>
+                <span class="label label-success">评论 {{ article.comments.count() }}</span>
+            </div>
+        </div>
+    {% endfor %}
 </div>
