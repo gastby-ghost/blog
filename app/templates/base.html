@@ -105,7 +105,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <script type='text/javascript' src='../static/js/calender.js'></script>
+                                        <script src="{{ url_for('static', filename='js/calender.js') }}"></script>
                                     </div>
                                     <div class="entry-box">
                                         <h5><strong>标签</strong></h5>
@@ -185,9 +185,9 @@
     </button>
 </div>
 {% block script %}
-    <script src="{{ url_for('static', filename='../static/js/jquery-2.2.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='../static/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='../static/js/floatButton.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-2.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/floatButton.js') }}"></script>
     {# csrfToken for Ajax   #}
     <script>
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
