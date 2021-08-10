@@ -9,8 +9,8 @@ class Config():
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    ARTICLES_PER_PAGE = 10
-    ARTICLES_PER_CATA = 50
+    ARTICLES_PER_PAGE = 6
+    ARTICLES_PER_CATA = 30
     COMMENTS_PER_PAGE = 6
     SECRET_KEY = 'secret key to protect from csrf'
     WTF_CSRF_SECRET_KEY = 'random key for form' # for csrf protection

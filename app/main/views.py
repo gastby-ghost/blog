@@ -1,10 +1,10 @@
 # coding:utf-8
 from flask import render_template, request, current_app, redirect, \
-    url_for, flash
+    url_for, flash, session
 from . import main
 from ..models import Article, ArticleType, article_types, Comment, \
     Follow, User, Source, BlogView
-from .forms import CommentForm
+from .forms import CommentForm, CataForm
 from .. import db
 
 
@@ -19,16 +19,58 @@ def index():
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.index')
 
-@main.route('/cata')
+
+@main.route('/cata', methods=['GET', 'POST'])
 def cata():
     BlogView.add_view(db)
     page = request.args.get('page', 1, type=int)
-    pagination = Article.query.order_by(Article.create_time.desc()).paginate(
+
+    form = CataForm()
+    sources = [(s.id, s.name) for s in Source.query.all()]
+    sources = [(0, "全部")] + sources
+    form.source.choices = sources
+    types = [(t.id, t.name) for t in ArticleType.query.all()]
+    types = [(0, "全部")] + types
+    form.types.choices = types
+    orders = [(1, "时间降序"), (2, "时间升序")]
+    form.order.choices = orders
+
+
+    if form.is_submitted():
+        session['source_id'] = form.source.data
+        session['type_id'] = form.types.data
+        session['order_id'] = form.order.data
+        session['old'] = True
+
+        return redirect(url_for('main.cata'))
+
+    if not session.get('old'):
+        session['source_id'] = 0
+        session['type_id'] = 0
+        session['order_id'] = 1
+    else:
+        form.source.data=session['source_id']
+        form.types.data=session['type_id']
+        form.order.data=session['order_id']
+
+    if session['order_id'] == 1:
+        query_result = Article.query.order_by(Article.create_time.desc())
+    else:
+        query_result = Article.query.order_by(Article.create_time.asc())
+    if session['type_id'] != 0:
+        query_result = query_result.filter_by(
+            articleType_id=session['type_id'])
+    if session['source_id'] != 0:
+        query_result = query_result.filter_by(
+            source_id=session['source_id'])
+
+    pagination = query_result.paginate(
         page, per_page=current_app.config['ARTICLES_PER_CATA'],
         error_out=False)
     articles = pagination.items
     return render_template('cata.html', articles=articles,
-                           pagination=pagination, endpoint='.cata')
+                           pagination=pagination, endpoint='.cata', form=form)
+
 
 @main.route('/article-types/<int:id>/')
 def articleTypes(id):
