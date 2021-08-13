@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% import "bootstrap/wtf.html" as wtf %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <title>登陆Blog_mini管理后台</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+</head>
+<body background="{{ url_for('static', filename='images/background.jpg') }}">
+<div class="container login-page">
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+</div>

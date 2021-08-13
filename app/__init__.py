@@ -5,12 +5,12 @@ from flask_login import LoginManager    #登录管理模块
 from flask_wtf.csrf import CsrfProtect      #csrf保护模块
 from flask_moment import Moment             #时间模块
 from config import Config                   #配置文件模块
-
+from flask_mail import Mail
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 moment = Moment()
-
+mail = Mail()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -26,6 +26,7 @@ def create_app():
     db.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
+    mail.init_app(app)
     login_manager.init_app(app)
 
     from .main import main as main_blueprint

@@ -1,13 +1,13 @@
 """initial migration
 
-Revision ID: 179d183b9e5b
+Revision ID: 33f28238ef30
 Revises: None
-Create Date: 2021-08-06 09:29:48.205712
+Create Date: 2021-08-13 15:43:15.553270
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '179d183b9e5b'
+revision = '33f28238ef30'
 down_revision = None
 
 from alembic import op
@@ -65,6 +65,12 @@ def upgrade():
     sa.Column('username', sa.String(length=64), nullable=True),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
     sa.Column('avatar_hash', sa.String(length=32), nullable=True),
+    sa.Column('confirmed', sa.Boolean(), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=True),
+    sa.Column('location', sa.String(length=64), nullable=True),
+    sa.Column('about_me', sa.Text(), nullable=True),
+    sa.Column('member_since', sa.DateTime(), nullable=True),
+    sa.Column('confirm_num', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)

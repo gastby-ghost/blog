@@ -1,0 +1,7 @@
+<p> 亲爱的{{ dict['user'].username }},</p>
+<p> 感谢您的注册</p>
+<p> 验证码页面链接 <a href="{{ url_for('auth.confirm', email=dict['user'].email, _external=True) }}">click here</a>.</p>
+<p> 您也可以打开下面网址:</p>
+<p>{{ url_for('auth.confirm',email=dict['user'].email,_external=True) }}</p>
+<p>验证码：{{dict['confirm_num']}}<p>
+<p><small>请不要将验证码泄露给他人.</small></p>

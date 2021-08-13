@@ -1,0 +1,11 @@
+亲爱的{{ dict['user'].username }}
+
+感谢您的注册
+
+您也可以打开下面网址:
+
+{{ url_for('auth.confirm',email=dict['user'].email,_external=True) }}
+
+验证码：{{dict['confirm_num']}}
+
+请不要将验证码泄露给他人.

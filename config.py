@@ -4,6 +4,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config():
     # DEBUG = True
+    MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.163.com')
+    MAIL_PORT = int(os.environ.get('MAIL_PORT', '465'))
+    MAIL_USE_SSL = 'True'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME','shan_tool@163.com')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD','LQGCONFIBASYPDNA')
+    FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
+    FLASKY_MAIL_SENDER = 'shan_tool@163.com'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
