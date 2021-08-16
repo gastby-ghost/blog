@@ -76,8 +76,10 @@ class User(UserMixin, db.Model):
     def confirm(self, confirm_num):
         if confirm_num == self.confirm_num:
             self.confirmed = True
-        db.session.commit()
-        return True
+            db.session.commit()
+            return True
+        else:
+            return False
 
     def generate_reset_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
