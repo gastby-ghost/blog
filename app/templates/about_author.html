@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block content %}
+    <div class="entry-box account">
+        {% for author in authors %}
+            <div class="article-entry-info">
+                <div class="user-info">
+                    <img class="img-rounded profile-thumbnail" src="{{ author.gravatar(size=128) }}">
+                    <div class="profile-header">
+                        <h5>用户名：</h5>
+                        <p class="username">{{ author.username }}</p>
+                        <h5>邮箱：</h5>
+                        <p class="email">{{ author.email }}</p>
+                        <h5>地址：</h5>
+                        <a href="http://maps.google.com/?q={{ author.location }}">{{ author.location }}</a>
+                        <a class="btn btn-sm btn-info" onclick="index()">
+                            详细信息
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+    {% if endpoint == '.cata' %}
+        {{ macros.pagination_widget(pagination, endpoint) }}
+    {% else %}
+        {{ macros.pagination_widget(pagination, endpoint, id=id) }}
+    {% endif %}
+    </div>
+{% endblock %}

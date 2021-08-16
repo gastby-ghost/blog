@@ -19,6 +19,7 @@ class Config():
     ARTICLES_PER_PAGE = 6
     ARTICLES_PER_CATA = 30
     COMMENTS_PER_PAGE = 6
+    AUTHOR_PER_PAGE=5
     SECRET_KEY = 'secret key to protect from csrf'
     WTF_CSRF_SECRET_KEY = 'random key for form' # for csrf protection
     # Take good care of 'SECRET_KEY' and 'WTF_CSRF_SECRET_KEY', if you use the

@@ -19,6 +19,16 @@ def index():
     return render_template('index.html', articles=articles,
                            pagination=pagination, endpoint='.index')
 
+@main.route('/about_author')
+def about_author():
+    BlogView.add_view(db)
+    page = request.args.get('page', 1, type=int)
+    pagination = User.query.paginate(
+        page, per_page=current_app.config['ARTICLES_PER_PAGE'],
+        error_out=False)
+    authors = pagination.items
+    return render_template('about_author.html', authors=authors,
+                           pagination=pagination, endpoint='.index')
 
 @main.route('/cata', methods=['GET', 'POST'])
 def cata():
