@@ -132,3 +132,4 @@ venv/
 __pycahe__/
 app/__pycahe__/
 .idea/
+migrations/

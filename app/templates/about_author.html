@@ -13,7 +13,7 @@
                         <p>地址： <a href="http://www.amap.com/?q={{ author.location }}">{{ author.location }}</a></p>
                         <p>注册时间： {{ moment(author.member_since).format('L') }}.</p>
                         <p>关于我： {{ author.about_me }}</p>
-                        <a class="btn btn-sm btn-info" href="url(main.index())">
+                        <a class="btn btn-sm btn-info" href="{{url_for('main.author_detail',user_id=author.id)}}">
                             我的博客
                         </a>
                     </div>

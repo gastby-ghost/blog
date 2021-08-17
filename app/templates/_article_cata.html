@@ -42,6 +42,11 @@
                 </span>&nbsp;
             </div>
             <div class="main-info">
+                <span class="label label-info">
+                    <a href="{{ url_for('main.author_detail',user_id=article.user.id ) }}" target="_blank" style="color: white">
+                        {{ article.user.username }}
+                    </a>
+                </span>&nbsp;
                 <span class="label label-primary">浏览 {{ article.num_of_view }}</span>
                 <span class="label label-success">评论 {{ article.comments.count() }}</span>
             </div>

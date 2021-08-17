@@ -19,6 +19,7 @@ article_types = {u'开发语言': ['Python', 'Java', 'JavaScript'],
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
@@ -30,6 +31,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.Text(), default="待定")
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     confirm_num = db.Column(db.String(64), default="asfhafgsg")
+    articles = db.relationship('Article', backref='user', lazy='dynamic')
 
     @staticmethod
     def insert_admin(email, username, password):
@@ -379,6 +381,7 @@ class Article(db.Model):
     create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     num_of_view = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     articleType_id = db.Column(db.Integer, db.ForeignKey('articleTypes.id'))
     source_id = db.Column(db.Integer, db.ForeignKey('sources.id'))
     comments = db.relationship('Comment', backref='article', lazy='dynamic')
@@ -392,19 +395,22 @@ class Article(db.Model):
         seed()
         articleType_count = ArticleType.query.count()
         source_count = Source.query.count()
-        for i in range(count):
-            aT = ArticleType.query.offset(randint(0, articleType_count - 1)).first()
-            s = Source.query.offset(randint(0, source_count - 1)).first()
-            a = Article(title=forgery_py.lorem_ipsum.title(randint(3, 5)),
-                        content=forgery_py.lorem_ipsum.sentences(randint(15, 35)),
-                        summary=forgery_py.lorem_ipsum.sentences(randint(2, 5)),
-                        num_of_view=randint(100, 15000),
-                        articleType=aT, source=s)
-            db.session.add(a)
-            try:
-                db.session.commit()
-            except IntegrityError:
-                db.session.rollback()
+        user_count = User.query.count()
+        if user_count>0:
+            for i in range(count):
+                aT = ArticleType.query.offset(randint(0, articleType_count - 1)).first()
+                s = Source.query.offset(randint(0, source_count - 1)).first()
+                au = User.query.offset(randint(0, user_count - 1)).first()
+                a = Article(title=forgery_py.lorem_ipsum.title(randint(3, 5)),
+                            content=forgery_py.lorem_ipsum.sentences(randint(15, 35)),
+                            summary=forgery_py.lorem_ipsum.sentences(randint(2, 5)),
+                            num_of_view=randint(100, 15000),
+                            articleType=aT, source=s,user=au)
+                db.session.add(a)
+                try:
+                    db.session.commit()
+                except IntegrityError:
+                    db.session.rollback()
 
     @staticmethod
     def add_view(article, db):

@@ -42,14 +42,14 @@ def submitArticles():
         source = Source.query.get(source_id)
         articleType = ArticleType.query.get(type_id)
 
+
         if source and articleType:
             article = Article(title=title, content=content, summary=summary,
-                              source=source, articleType=articleType)
+                              source=source, articleType=articleType,user=current_user)
             db.session.add(article)
             db.session.commit()
             flash(u'发表博文成功！', 'success')
-            article_id = Article.query.filter_by(title=title).first().id
-            return redirect(url_for('main.articleDetails', id=article_id))
+            return redirect(url_for('main.articleDetails', id=article.id))
     if form.errors:
         flash(u'发表博文失败', 'danger')
 
@@ -246,9 +246,7 @@ def enable_comment(id):
                             page=request.args.get('page', 1, type=int)))
 
 
-# 单条评论的删除，这里就不使用表单或者Ajax了，这与博文的管理不同，但后面多条评论的删除会使用Ajax
-# 前面在admin页面删除单篇博文时使用表单而不是Ajax，其实使用Ajax效果会更好，当然这里只是尽可能
-# 使用不同的技术，因为以后在做自动化运维开发时总有用得上的地方
+
 @admin.route('/manage-comments/delete-comment/<int:id>')
 @login_required
 def delete_comment(id):
@@ -387,9 +385,7 @@ def manage_articleTypes():
     return render_template('admin/manage_articleTypes.html', articleTypes=articleTypes,
                            pagination=pagination, endpoint='.manage_articleTypes',
                            form=form, form2=form2, page=page)
-# 提示，添加分类的验证表单也写在了上面，建议可以分开来写，这里只是提供一种方法，前面的也是如此
-# 虽然分开来写会多写一点代码，但这样的逻辑就更清晰了
-# 另外需要注意的是，两个验证表单写在同一个view当中会出现问题，所以建议还是分开来写
+
 
 
 @admin.route('/manage-articletypes/edit-articleType', methods=['POST'])

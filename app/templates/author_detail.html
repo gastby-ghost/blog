@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block content %}
+    <div class="entry-box account">
+        <div class="article-entry-info">
+            <div class="user-info">
+                <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=128) }}">
+                <div class="profile-header">
+                    <p>用户名： {{ user.username }}</p>
+                    <p>邮箱：  {{ user.email }}</p>
+                    <p>地址： <a href="http://www.amap.com/?q={{ user.location }}">{{ user.location }}</a></p>
+                    <p>注册时间： {{ moment(user.member_since).format('L') }}.</p>
+                    <p>关于我： {{ user.about_me }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='article-entry' class="entry-box">
+        <form method="post" action="">
+            {{ form.csrf_token }}
+            <div style="height:50px">
+                <div class="form-group" style="float: left">
+                    {{ form.types.label(class='control-label') }}：
+                    {{ form.types() }}&nbsp;&nbsp;
+                </div>
+                <div class="form-group" style="float: left">
+                    {{ form.source.label(class='control-label') }}：
+                    {{ form.source() }}&nbsp;&nbsp;
+                </div>
+                <div class="form-group" style="float: left">
+                    {{ form.order.label(class='control-label') }}：
+                    {{ form.order() }}&nbsp;&nbsp;
+                </div>
+                <div style="float: right">
+                    {{form.submit()}}
+                </div>
+            </div>
+        </form>
+        {% for article in articles %}
+            <div class="article-entry-info">
+                <div class="base-info">
+                    <span class="label label-default">{{ moment(article.create_time.date()).format('LL') }}</span>&nbsp;
+                    <span class="label label-warning">
+                        <a href="{{ url_for('main.article_sources', id=article.source.id) }}" target="_blank" style="color: white">
+                            {{ article.source.name }}
+                        </a>
+                    </span>&nbsp;
+                    <span class="label label-info">
+                        <a href="{{ url_for('main.articleTypes', id=article.articleType.id) }}" target="_blank" style="color: white">
+                            {{ article.articleType.name }}
+                        </a>
+                    </span>&nbsp;
+                </div>
+                <div class="base-info">
+                    <span >
+                        <a href="{{ url_for('.articleDetails', id=article.id) }}">{{ article.title }}</a>
+                    </span>&nbsp;
+                </div>
+                <div class="main-info">
+                    <span class="label label-primary">浏览 {{ article.num_of_view }}</span>
+                    <span class="label label-success">评论 {{ article.comments.count() }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+    {% if endpoint == '.cata' %}
+        {{ macros.pagination_widget(pagination, endpoint) }}
+    {% else %}
+        {{ macros.pagination_widget(pagination, endpoint, id=id) }}
+    {% endif %}
+    </div>
+{% endblock %}
