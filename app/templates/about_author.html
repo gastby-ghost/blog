@@ -8,14 +8,13 @@
                 <div class="user-info">
                     <img class="img-rounded profile-thumbnail" src="{{ author.gravatar(size=128) }}">
                     <div class="profile-header">
-                        <h5>用户名：</h5>
-                        <p class="username">{{ author.username }}</p>
-                        <h5>邮箱：</h5>
-                        <p class="email">{{ author.email }}</p>
-                        <h5>地址：</h5>
-                        <a href="http://maps.google.com/?q={{ author.location }}">{{ author.location }}</a>
-                        <a class="btn btn-sm btn-info" onclick="index()">
-                            详细信息
+                        <p>用户名： {{ author.username }}</p>
+                        <p>邮箱：  {{ author.email }}</p>
+                        <p>地址： <a href="http://www.amap.com/?q={{ author.location }}">{{ author.location }}</a></p>
+                        <p>注册时间： {{ moment(author.member_since).format('L') }}.</p>
+                        <p>关于我： {{ author.about_me }}</p>
+                        <a class="btn btn-sm btn-info" href="url(main.index())">
+                            我的博客
                         </a>
                     </div>
                 </div>
