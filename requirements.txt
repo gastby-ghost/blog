@@ -1,5 +1,7 @@
 alembic==1.6.5
 blinker==1.4
+cffi==1.14.6
+cryptography==3.4.8
 dominate==2.6.0
 Flask==0.10.1
 Flask-Bootstrap==3.3.5.7
@@ -17,6 +19,8 @@ itsdangerous==0.24
 Jinja2==2.8
 Mako==1.1.4
 MarkupSafe==0.23
+pycparser==2.20
+PyMySQL==1.0.2
 python-dateutil==2.8.2
 python-editor==1.0.4
 six==1.16.0
