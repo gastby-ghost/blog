@@ -6,6 +6,7 @@ from app.models import ArticleType, article_types, Source, \
     Comment, Article, User, Menu, ArticleTypeSetting, BlogInfo, \
     Plugin, BlogView
 
+
 app = create_app()
 manager = Manager(app)
 migrate = Migrate(app, db)
@@ -46,7 +47,7 @@ def deploy(deploy_type):
         # step_1:insert basic blog info
         BlogInfo.insert_blog_info()
         # step_2:insert admin account
-#        User.insert_admin(email='blog_mini@163.com', username='blog_mini', password='blog_mini')
+        #        User.insert_admin(email='blog_mini@163.com', username='blog_mini', password='blog_mini')
         # step_3:insert system default setting
         ArticleTypeSetting.insert_system_setting()
         # step_4:insert default article sources
@@ -76,4 +77,4 @@ def deploy(deploy_type):
 
 if __name__ == '__main__':
     manager.run()
-    #app.run(debug=True)
+    #app.run(host='0.0.0.0',port=80)

@@ -6,7 +6,9 @@ from flask_wtf.csrf import CsrfProtect      #csrf保护模块
 from flask_moment import Moment             #时间模块
 from config import Config                   #配置文件模块
 from flask_mail import Mail
+import pymysql
 
+pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 moment = Moment()

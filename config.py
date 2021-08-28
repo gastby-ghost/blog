@@ -12,10 +12,11 @@ class Config():
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = 'shan_tool@163.com'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+        'mysql+pymysql://blog_shan:szj0622@SZJ0419@localhost/blog'
+    #    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
     ARTICLES_PER_PAGE = 6
     ARTICLES_PER_CATA = 30
     COMMENTS_PER_PAGE = 6
