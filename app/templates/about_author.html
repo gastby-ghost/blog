@@ -2,25 +2,25 @@
 {% import "_macros.html" as macros %}
 
 {% block content %}
+{% for author in authors %}
     <div class="entry-box account">
-        {% for author in authors %}
-            <div class="article-entry-info">
-                <div class="user-info">
-                    <img class="img-rounded profile-thumbnail" src="{{ author.gravatar(size=128) }}">
-                    <div class="profile-header">
-                        <p>用户名： {{ author.username }}</p>
-                        <p>邮箱：  {{ author.email }}</p>
-                        <p>地址： <a href="http://www.amap.com/?q={{ author.location }}">{{ author.location }}</a></p>
-                        <p>注册时间： {{ moment(author.member_since).format('L') }}.</p>
-                        <p>关于我： {{ author.about_me }}</p>
-                        <a class="btn btn-sm btn-info" href="{{url_for('main.author_detail',user_id=author.id)}}">
-                            我的博客
-                        </a>
-                    </div>
+        <div class="article-entry-info">
+            <div class="user-info">
+                <img class="img-rounded profile-thumbnail" src="{{ author.gravatar(size=128) }}">
+                <div class="profile-header">
+                    <p>用户名： {{ author.username }}</p>
+                    <p>邮箱：  {{ author.email }}</p>
+                    <p>地址： <a href="http://www.amap.com/?q={{ author.location }}">{{ author.location }}</a></p>
+                    <p>注册时间： {{ moment(author.member_since).format('L') }}.</p>
+                    <p>关于我： {{ author.about_me }}</p>
+                    <a class="btn btn-sm btn-info" href="{{url_for('main.author_detail',user_id=author.id)}}">
+                        我的博客
+                    </a>
                 </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
+{% endfor %}
     <div class="pagination">
     {% if endpoint == '.cata' %}
         {{ macros.pagination_widget(pagination, endpoint) }}
