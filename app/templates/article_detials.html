@@ -22,7 +22,7 @@
             {{ moment(article.update_time.replace(microsecond=0)).format('LLL') }}
         </p>
     </div>
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated and current_user.id==article.user_id %}
     <div class="article-edit">
         <a href="{{ url_for('admin.editArticles', id=article.id) }}">
             <button type="button" class="btn btn-default btn-sm">

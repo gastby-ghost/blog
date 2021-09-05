@@ -121,6 +121,7 @@ def manage_articles():
             page = request.args.get('page', 1, type=int)
 
         result = Article.query.order_by(Article.create_time.desc())
+        result = result.filter_by(user_id=current_user.id)
         if types_id != -1:
             articleType = ArticleType.query.get_or_404(types_id)
             result = result.filter_by(articleType=articleType)
@@ -135,7 +136,8 @@ def manage_articles():
         articles = pagination_search.items
     else:
         page = request.args.get('page', 1, type=int)
-        pagination = Article.query.order_by(Article.create_time.desc()).paginate(
+        pagination = (Article.query.order_by(Article.create_time.desc()).
+                      filter_by(user_id=current_user.id)).paginate(
                 page, per_page=current_app.config['ARTICLES_PER_PAGE'],
                 error_out=False)
         articles = pagination.items
