@@ -16,6 +16,12 @@
                 {{ form.order.label(class='control-label') }}：
                 {{ form.order() }}&nbsp;&nbsp;
             </div>
+            {% if current_user.is_authenticated %}
+                <div class="form-group" style="float: left">
+                    {{ form.checkbox.label(class='control-label') }}：
+                    {{ form.checkbox() }}&nbsp;&nbsp;
+                </div>
+            {% endif %}
             <div style="float: right">
                 {{form.submit()}}
             </div>
