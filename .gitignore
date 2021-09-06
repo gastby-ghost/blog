@@ -129,7 +129,6 @@ dmypy.json
 .pyre/
 *.sqlite
 venv/
-__pycahe__/
-app/__pycahe__/
+*/__pycache__
 .idea/
 migrations/
