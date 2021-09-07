@@ -7,12 +7,22 @@ from flask_moment import Moment             #时间模块
 from config import Config                   #配置文件模块
 from flask_mail import Mail
 import pymysql
+import logging
+import time
+import os
+
 
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 moment = Moment()
 mail = Mail()
+
+handler=logging.FileHandler('error.log',encoding='UTF-8')
+logging_format=logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+handler.setFormatter(logging_format)
+
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -25,6 +35,7 @@ def create_app():
     Config.init_app(app)
     CsrfProtect(app)
 
+    app.logger.addHandler(handler)
     db.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)

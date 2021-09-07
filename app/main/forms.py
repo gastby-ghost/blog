@@ -16,5 +16,5 @@ class CataForm(Form):
     types = SelectField(u'博文分类', coerce=int, validators=[DataRequired()])
     source = SelectField(u'博文来源', coerce=int, validators=[DataRequired()])
     order = SelectField(u'时间排序', coerce=int, validators=[DataRequired()])
-    checkbox=BooleanField(u'只看我',validators=[DataRequired(), ])
+    checkbox=BooleanField(u'只看我')
     submit=SubmitField("筛选")
